@@ -7,17 +7,26 @@ export default defineComponent({
     console.log('sweet mate!');
     const now = new Date();
     const copyNow = new Date(now.getTime());
+    const firstDayThisMonth = new Date(now.getFullYear(), now.getMonth() , 1);
+    const lastDayThisMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     const lastDayLastMonth = new Date(copyNow.setDate(0));
-    const firstDayNextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+    //const firstDayNextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
     console.log('now', now);
+    console.log('firstDayThisMonth', firstDayThisMonth);
+    console.log('firstDayThisMonth, day of week', firstDayThisMonth.getDay());
     console.log('lastDayLastMonth', lastDayLastMonth);
-    console.log('firstDayNextMonth', firstDayNextMonth);
+    //console.log('firstDayNextMonth', firstDayNextMonth);
     const daysLastMonth = this.getDaysInMonth( lastDayLastMonth );
     const daysCurrMonth = this.getDaysInMonth( now );
-    const daysNextMonth = this.getDaysInMonth( firstDayNextMonth );
-    console.log('daysLastMonth', daysLastMonth);
-    console.log('daysCurrMonth', daysCurrMonth);
-    console.log('daysNextMonth', daysNextMonth);
+    //const daysNextMonth = this.getDaysInMonth( firstDayNextMonth );
+    //console.log('daysLastMonth', daysLastMonth);
+    //console.log('daysCurrMonth', daysCurrMonth);
+    //console.log('daysNextMonth', daysNextMonth);
+
+    const fragmentLastMonth = firstDayThisMonth.getDay() === 0 ? [] : daysLastMonth.slice(-firstDayThisMonth.getDay());
+    console.log(fragmentLastMonth);
+    const fragmentNextMonth = [1,2,3,4,5,6,7].slice(0, lastDayThisMonth.getDay() + 2);
+    console.log(fragmentNextMonth);
   },
   methods: {
     getDaysInMonth: function (aDate) {   
