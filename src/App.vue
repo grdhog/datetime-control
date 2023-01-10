@@ -4,8 +4,39 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'App',
   mounted: function () {
-    console.log('sweet mate!')
+    console.log('sweet mate!');
+    const now = new Date();
+    const [month, year] = [now.getMonth(), now.getFullYear()];
+    const firstOfMonth = new Date(year, month , 1);
+    let prevMonth = new Date(firstOfMonth.getTime()); 
+    prevMonth.setMonth(prevMonth.getMonth() - 1);
+    let nextMonth = new Date(firstOfMonth.getTime()); 
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    const daysPrevMonth = this.getDaysInMonth(prevMonth.getMonth(), prevMonth.getFullYear() );
+    const daysCurrMonth = this.getDaysInMonth(firstOfMonth.getMonth(), firstOfMonth.getFullYear() );
+    const daysNextMonth = this.getDaysInMonth(nextMonth.getMonth(), nextMonth.getFullYear() );
+    console.log('daysPrevMonth: ', daysPrevMonth);
+    console.log('daysCurrMonth: ', daysCurrMonth);
+    console.log('daysNextMonth: ', daysNextMonth);
+    console.log('today dayOfWeek', now.getDay() );
   },
+  methods: {
+    get7by6Days: function(jsZeroIndexMonth, year){
+      const allDays= Array(42);
+      const currMonth = this.daysInMonth(jsZeroIndexMonth, year);
+      return allDays;
+    },
+    getDaysInMonth: function (jsZeroIndexMonth, year) {   
+      console.log('jsZeroIndexMonth:', jsZeroIndexMonth, 'year:' , year);
+      var date = new Date(year, jsZeroIndexMonth , 1);
+      var days = [];
+      while (date.getMonth() === jsZeroIndexMonth) {
+        days.push(new Date(date))
+        date.setDate(date.getDate() + 1)
+      }
+      return days
+    }
+  }
 })
 </script>
 
