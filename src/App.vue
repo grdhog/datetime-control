@@ -6,36 +6,24 @@ export default defineComponent({
   mounted: function () {
     console.log('sweet mate!');
     const now = new Date();
-    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    console.log('firstDay', firstDay);
-    console.log('lastDay', lastDay);
-
-    const daysLastMonth = this.getDaysInMonth( new Date(firstDay.getTime() )(-1)).getMonth(), (firstDay.setDate(-1)).getFullYear() );
-    const daysCurrMonth = this.getDaysInMonth( firstDay.getMonth(), firstDay.getFullYear() );
-    const daysNextMonth = this.getDaysInMonth( (lastDay.setDate(1)).getMonth(), (lastDay.setDate(1)).getFullYear() );
-
+    const copyNow = new Date(now.getTime());
+    const lastDayLastMonth = new Date(copyNow.setDate(0));
+    const firstDayNextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+    console.log('now', now);
+    console.log('lastDayLastMonth', lastDayLastMonth);
+    console.log('firstDayNextMonth', firstDayNextMonth);
+    const daysLastMonth = this.getDaysInMonth( lastDayLastMonth );
+    const daysCurrMonth = this.getDaysInMonth( now );
+    const daysNextMonth = this.getDaysInMonth( firstDayNextMonth );
     console.log('daysLastMonth', daysLastMonth);
     console.log('daysCurrMonth', daysCurrMonth);
     console.log('daysNextMonth', daysNextMonth);
-
-    /*
-  
-    console.log('days needed from last month', daysPrevMonth.slice(-now.getDay()) );
-    console.log('days needed from next month', daysNextMonth.slice(lastDayOfMonth.getDay()) );
-    */
   },
   methods: {
-    get7by6Days: function(jsZeroIndexMonth, year){
-      const allDays= Array(42);
-      const currMonth = this.daysInMonth(jsZeroIndexMonth, year);
-      return allDays;
-    },
-    getDaysInMonth: function (jsZeroIndexMonth, year) {   
-      console.log('jsZeroIndexMonth:', jsZeroIndexMonth, 'year:' , year);
-      var date = new Date(year, jsZeroIndexMonth , 1);
+    getDaysInMonth: function (aDate) {   
+      var date = new Date(aDate.getFullYear(), aDate.getMonth() , 1);
       var days = [];
-      while (date.getMonth() === jsZeroIndexMonth) {
+      while (date.getMonth() === aDate.getMonth()) {
         days.push(new Date(date))
         date.setDate(date.getDate() + 1)
       }
