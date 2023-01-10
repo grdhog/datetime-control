@@ -18,96 +18,13 @@ export default defineComponent({
       crossorigin="anonymous"
     />
 
-    <div class="xdsoft_timepicker active">
-      <button type="button" class="xdsoft_prev"></button>
-      <div class="xdsoft_time_box xdsoft_scroller_box" style="height: 150px; width: 50px; overflow-y: auto">
-        <!--<div class="xdsoft_time_variant" style="margin-top: -376px">-->
-        <div class="ajg-time" data-hour="0" data-minute="0">00:00</div>
-        <div class="ajg-time" data-hour="1" data-minute="0">01:00</div>
-        <div class="ajg-time" data-hour="2" data-minute="0">02:00</div>
-        <div class="ajg-time" data-hour="3" data-minute="0">03:00</div>
-        <div class="ajg-time" data-hour="4" data-minute="0">04:00</div>
-        <div class="ajg-time" data-hour="5" data-minute="0">05:00</div>
-        <div class="ajg-time" data-hour="6" data-minute="0">06:00</div>
-        <div class="ajg-time" data-hour="7" data-minute="0">07:00</div>
-        <div class="ajg-time" data-hour="8" data-minute="0">08:00</div>
-        <div class="ajg-time" data-hour="9" data-minute="0">09:00</div>
-        <div class="ajg-time" data-hour="10" data-minute="0">10:00</div>
-        <div class="ajg-time" data-hour="11" data-minute="0">11:00</div>
-        <div class="ajg-time" data-hour="12" data-minute="0">12:00</div>
-        <div class="ajg-time" data-hour="13" data-minute="0">13:00</div>
-        <div class="ajg-time" data-hour="14" data-minute="0">14:00</div>
-        <div class="ajg-time" data-hour="15" data-minute="0">15:00</div>
-        <div class="ajg-time" data-hour="16" data-minute="0">16:00</div>
-        <div class="ajg-time" data-hour="17" data-minute="0">17:00</div>
-        <div class="ajg-time" data-hour="18" data-minute="0">18:00</div>
-        <div class="ajg-time" data-hour="19" data-minute="0">19:00</div>
-        <div class="ajg-time" data-hour="20" data-minute="0">20:00</div>
-        <div class="ajg-time" data-hour="21" data-minute="0">21:00</div>
-        <div class="ajg-time" data-hour="22" data-minute="0">22:00</div>
-        <div class="ajg-time" data-hour="23" data-minute="0">23:00</div>
-        <!--</div>-->
-        <!--
-            <div class="xdsoft_scrollbar">
-              <div class="xdsoft_scroller" style="height: 37px; margin-top: 93.3747px"></div>
-            </div>
-            -->
-      </div>
-      <button type="button" class="xdsoft_next"></button>
-    </div>
-
     <div class="xdsoft_datetimepicker xdsoft_noselect xdsoft_">
       <div class="xdsoft_datepicker active">
         <div class="xdsoft_monthpicker">
-          <button type="button" class="xdsoft_prev" style="visibility: visible"></button
-          ><button type="button" class="xdsoft_today_button" style="visibility: visible"></button>
-          <div class="xdsoft_label xdsoft_month">
-            <span>October</span>
-            <!-- 
-            <div class="xdsoft_select xdsoft_monthselect xdsoft_scroller_box" style="display: none">
-              <div style="margin-top: 0px">
-                <div class="xdsoft_option" data-value="0">January</div>
-                <div class="xdsoft_option" data-value="1">February</div>
-                <div class="xdsoft_option" data-value="2">March</div>
-                <div class="xdsoft_option" data-value="3">April</div>
-                <div class="xdsoft_option" data-value="4">May</div>
-                <div class="xdsoft_option" data-value="5">June</div>
-                <div class="xdsoft_option" data-value="6">July</div>
-                <div class="xdsoft_option" data-value="7">August</div>
-                <div class="xdsoft_option" data-value="8">September</div>
-                <div class="xdsoft_option xdsoft_current" data-value="9">October</div>
-                <div class="xdsoft_option" data-value="10">November</div>
-                <div class="xdsoft_option" data-value="11">December</div>
-              </div>
-              <div class="xdsoft_scrollbar">
-                <div class="xdsoft_scroller" style="height: 10px; margin-top: 0px"></div>
-              </div>
-            </div>
-            -->
-            <!--<i></i>-->
-          </div>
-          <div class="xdsoft_label xdsoft_year">
-            <span>2010</span>
-            <!--
-            <div class="xdsoft_select xdsoft_yearselect xdsoft_scroller_box">
-              <div style="margin-top: 0px">
-                <div class="xdsoft_option" data-value="1950">1950</div>
-                <div class="xdsoft_option" data-value="1951">1951</div>
-                <div class="xdsoft_option" data-value="1952">1952</div>
-                <div class="xdsoft_option" data-value="1953">1953</div>
-                <div class="xdsoft_option" data-value="1954">1954</div>
-                <div class="xdsoft_option" data-value="2048">2048</div>
-                <div class="xdsoft_option" data-value="2049">2049</div>
-                <div class="xdsoft_option" data-value="2050">2050</div>
-              </div>
-              <div class="xdsoft_scrollbar">
-                <div class="xdsoft_scroller" style="height: 10px; margin-top: 0px"></div>
-              </div>
-            </div>
-
-            <i></i>
-            -->
-          </div>
+          <button type="button" class="xdsoft_prev"></button>
+          <button type="button" class="xdsoft_today_button"></button>
+          <span>October</span>
+          <span>2010</span>
           <button type="button" class="xdsoft_next" style="visibility: visible"></button>
         </div>
         <div class="xdsoft_calendar">
@@ -561,10 +478,201 @@ export default defineComponent({
         <button type="button" class="xdsoft_next"></button>
       </div>
     </div>
+
+    <div style="background-color: beige; padding: 10px; position: absolute; top: 600px">
+      <table class="pcccal">
+        <thead>
+          <tr>
+            <th>Sun</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-date="26" data-month="8" data-year="2010" class="selectable" title="">
+              <div>26</div>
+            </td>
+            <td
+              data-date="27"
+              data-month="8"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week1 xdsoft_date xdsoft_other_month"
+              title=""
+            >
+              <div>27</div>
+            </td>
+            <td
+              data-date="28"
+              data-month="8"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week2 xdsoft_date xdsoft_other_month"
+              title=""
+            >
+              <div>28</div>
+            </td>
+            <td
+              data-date="29"
+              data-month="8"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week3 xdsoft_date xdsoft_other_month"
+              title=""
+            >
+              <div>29</div>
+            </td>
+            <td
+              data-date="30"
+              data-month="8"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week4 xdsoft_date xdsoft_other_month"
+              title=""
+            >
+              <div>30</div>
+            </td>
+            <td
+              data-date="1"
+              data-month="9"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week5 xdsoft_date"
+              title=""
+            >
+              <div>1</div>
+            </td>
+            <td
+              data-date="2"
+              data-month="9"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend"
+              title=""
+            >
+              <div>2</div>
+            </td>
+          </tr>
+          <tr>
+            <td
+              data-date="3"
+              data-month="9"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend"
+              title=""
+            >
+              <div>3</div>
+            </td>
+            <td
+              data-date="4"
+              data-month="9"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week1 xdsoft_date"
+              title=""
+            >
+              <div>4</div>
+            </td>
+            <td
+              data-date="5"
+              data-month="9"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week2 xdsoft_date"
+              title=""
+            >
+              <div>5</div>
+            </td>
+            <td
+              data-date="6"
+              data-month="9"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week3 xdsoft_date"
+              title=""
+            >
+              <div>6</div>
+            </td>
+            <td
+              data-date="7"
+              data-month="9"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week4 xdsoft_date"
+              title=""
+            >
+              <div>7</div>
+            </td>
+            <td
+              data-date="8"
+              data-month="9"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week5 xdsoft_date"
+              title=""
+            >
+              <div>8</div>
+            </td>
+            <td
+              data-date="9"
+              data-month="9"
+              data-year="2010"
+              classXX="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend"
+              title=""
+            >
+              <div>9</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <style>
+.pcccal {
+  border-collapse: collapse;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background: beige;
+  width: 224px;
+  font-size: 12px;
+}
+
+.pcccal thead {
+  margin: 0;
+}
+
+.pcccal th,
+.pcccal td {
+  width: 14.2857142%;
+  border: 1px solid #ddd;
+  color: #666;
+  text-align: right;
+  vertical-align: middle;
+  padding: 0;
+  border-collapse: collapse;
+  cursor: pointer;
+  height: 25px;
+}
+
+.pcccal td {
+  padding-right: 5px;
+}
+
+.pcccal .selectable {
+  padding-right: 5px;
+  background: #f5f5f5;
+}
+
+.pcccal th {
+  background: #f5f5f5;
+  font-weight: 700;
+  text-align: center;
+  color: #999;
+  cursor: default;
+}
+
+.pcccal .selectable {
+   background: #f5f5f5;
+}
+
 .ajg-time {
   background: #f5f5f5;
   border-top: 1px solid #ddd;
