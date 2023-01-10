@@ -6,19 +6,24 @@ export default defineComponent({
   mounted: function () {
     console.log('sweet mate!');
     const now = new Date();
-    const [month, year] = [now.getMonth(), now.getFullYear()];
-    const firstOfMonth = new Date(year, month , 1);
-    let prevMonth = new Date(firstOfMonth.getTime()); 
-    prevMonth.setMonth(prevMonth.getMonth() - 1);
-    let nextMonth = new Date(firstOfMonth.getTime()); 
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
-    const daysPrevMonth = this.getDaysInMonth(prevMonth.getMonth(), prevMonth.getFullYear() );
-    const daysCurrMonth = this.getDaysInMonth(firstOfMonth.getMonth(), firstOfMonth.getFullYear() );
-    const daysNextMonth = this.getDaysInMonth(nextMonth.getMonth(), nextMonth.getFullYear() );
-    console.log('daysPrevMonth: ', daysPrevMonth);
-    console.log('daysCurrMonth: ', daysCurrMonth);
-    console.log('daysNextMonth: ', daysNextMonth);
-    console.log('today dayOfWeek', now.getDay() );
+    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    console.log('firstDay', firstDay);
+    console.log('lastDay', lastDay);
+
+    const daysLastMonth = this.getDaysInMonth( new Date(firstDay.getTime() )(-1)).getMonth(), (firstDay.setDate(-1)).getFullYear() );
+    const daysCurrMonth = this.getDaysInMonth( firstDay.getMonth(), firstDay.getFullYear() );
+    const daysNextMonth = this.getDaysInMonth( (lastDay.setDate(1)).getMonth(), (lastDay.setDate(1)).getFullYear() );
+
+    console.log('daysLastMonth', daysLastMonth);
+    console.log('daysCurrMonth', daysCurrMonth);
+    console.log('daysNextMonth', daysNextMonth);
+
+    /*
+  
+    console.log('days needed from last month', daysPrevMonth.slice(-now.getDay()) );
+    console.log('days needed from next month', daysNextMonth.slice(lastDayOfMonth.getDay()) );
+    */
   },
   methods: {
     get7by6Days: function(jsZeroIndexMonth, year){
