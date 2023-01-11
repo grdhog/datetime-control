@@ -3,53 +3,61 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'App',
+  data: {
+    days: [],
+  },
   mounted: function () {
-    //Test May 2023 - 5 rows x 7
-    let expected = [
-      30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-      31, 1, 2, 3
-    ];
-    this.compare(expected, this.getGrid(new Date(2023, 4, 17)) );
-    //Test July 2023 - 6 rows x 7
-    expected = [
-      25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-      31, 1, 2, 3, 4, 5
-    ];
-    this.compare(expected, this.getGrid(new Date(2023, 6, 17)) );
+    this.runTests()
+    this.days = this.getGrid(new Date())
   },
   methods: {
-    compare: function(expected, actual){      
-      console.log('expected', expected);
-      console.log('actual', actual);
-      console.assert(expected.toString() === actual.toString());
+    runTests: function () {
+      //Test May 2023 - 5 rows x 7
+      let expected = [
+        30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+        30, 31, 1, 2, 3,
+      ]
+      this.compare(expected, this.getGrid(new Date(2023, 4, 17)))
+      //Test July 2023 - 6 rows x 7
+      expected = [
+        25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5,
+      ]
+      this.compare(expected, this.getGrid(new Date(2023, 6, 17)))
     },
-    getGrid: function (aDate) {     
-      console.log('START HERE...');
+    compare: function (expected, actual) {
+      console.log('expected', expected)
+      console.log('actual', actual)
+      console.assert(expected.toString() === actual.toString())
+    },
+    getGrid: function (aDate) {
+      console.log('START HERE...')
       const copyDate = new Date(aDate.getTime())
       const firstDaySelectedMonth = new Date(aDate.getFullYear(), aDate.getMonth(), 1)
       const lastDayThisMonth = new Date(aDate.getFullYear(), aDate.getMonth() + 1, 0)
-      const lastDayPrevMonth = new Date(copyDate.setDate(0));    
+      const lastDayPrevMonth = new Date(copyDate.setDate(0))
       //console.log('firstDaySelectedMonth', firstDaySelectedMonth);
       //console.log('day of week', firstDaySelectedMonth.getDay())
-      //console.log('lastDayPrevMonth', lastDayPrevMonth);  
+      //console.log('lastDayPrevMonth', lastDayPrevMonth);
       const daysPrevMonth = this.getDaysInMonth(lastDayPrevMonth)
-      const daysSelectedMonth = this.getDaysInMonth(aDate);
+      const daysSelectedMonth = this.getDaysInMonth(aDate)
       //console.log('daysPrevMonth', daysPrevMonth);
       //console.log('daysSelectedMonth', daysSelectedMonth);
       //console.log('lastDayThisMonth', lastDayThisMonth);
-      //console.log('lastDayThisMonth.getDay()',  lastDayThisMonth.getDay());    
-      const fragmentLastMonth = firstDaySelectedMonth.getDay() === 0 ? [] : daysPrevMonth.slice(-firstDaySelectedMonth.getDay())
+      //console.log('lastDayThisMonth.getDay()',  lastDayThisMonth.getDay());
+      const fragmentLastMonth =
+        firstDaySelectedMonth.getDay() === 0 ? [] : daysPrevMonth.slice(-firstDaySelectedMonth.getDay())
       //console.log('days I need from prev month', fragmentLastMonth);
-      const daysNeededNextMonth = 7 - (lastDayThisMonth.getDay() + 1);
-      const fragmentNextMonth = [1, 2, 3, 4, 5, 6, 7].slice(0, daysNeededNextMonth);
+      const daysNeededNextMonth = 7 - (lastDayThisMonth.getDay() + 1)
+      const fragmentNextMonth = [1, 2, 3, 4, 5, 6, 7].slice(0, daysNeededNextMonth)
       //console.log('days I need from next month', fragmentNextMonth);
-      return [].concat(fragmentLastMonth, daysSelectedMonth, fragmentNextMonth);
+      return [].concat(fragmentLastMonth, daysSelectedMonth, fragmentNextMonth)
     },
     getDaysInMonth: function (aDate) {
       var date = new Date(aDate.getFullYear(), aDate.getMonth(), 1)
       var days = []
       while (date.getMonth() === aDate.getMonth()) {
-        days.push(new Date(date).getDate());
+        days.push(new Date(date).getDate())
         date.setDate(date.getDate() + 1)
       }
       return days
@@ -67,468 +75,7 @@ export default defineComponent({
       crossorigin="anonymous"
     />
 
-    <div class="xdsoft_datetimepicker xdsoft_noselect xdsoft_">
-      <div class="xdsoft_datepicker active">
-        <div class="xdsoft_monthpicker">
-          <button type="button" class="xdsoft_prev"></button>
-          <button type="button" class="xdsoft_today_button"></button>
-          <span>October</span>
-          <span>2010</span>
-          <button type="button" class="xdsoft_next" style="visibility: visible"></button>
-        </div>
-        <div class="xdsoft_calendar">
-          <table>
-            <thead>
-              <tr>
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td
-                  data-date="26"
-                  data-month="8"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_other_month xdsoft_weekend"
-                  title=""
-                >
-                  <div>26</div>
-                </td>
-                <td
-                  data-date="27"
-                  data-month="8"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week1 xdsoft_date xdsoft_other_month"
-                  title=""
-                >
-                  <div>27</div>
-                </td>
-                <td
-                  data-date="28"
-                  data-month="8"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week2 xdsoft_date xdsoft_other_month"
-                  title=""
-                >
-                  <div>28</div>
-                </td>
-                <td
-                  data-date="29"
-                  data-month="8"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week3 xdsoft_date xdsoft_other_month"
-                  title=""
-                >
-                  <div>29</div>
-                </td>
-                <td
-                  data-date="30"
-                  data-month="8"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week4 xdsoft_date xdsoft_other_month"
-                  title=""
-                >
-                  <div>30</div>
-                </td>
-                <td
-                  data-date="1"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week5 xdsoft_date"
-                  title=""
-                >
-                  <div>1</div>
-                </td>
-                <td
-                  data-date="2"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend"
-                  title=""
-                >
-                  <div>2</div>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  data-date="3"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend"
-                  title=""
-                >
-                  <div>3</div>
-                </td>
-                <td
-                  data-date="4"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week1 xdsoft_date"
-                  title=""
-                >
-                  <div>4</div>
-                </td>
-                <td
-                  data-date="5"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week2 xdsoft_date"
-                  title=""
-                >
-                  <div>5</div>
-                </td>
-                <td
-                  data-date="6"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week3 xdsoft_date"
-                  title=""
-                >
-                  <div>6</div>
-                </td>
-                <td
-                  data-date="7"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week4 xdsoft_date"
-                  title=""
-                >
-                  <div>7</div>
-                </td>
-                <td
-                  data-date="8"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week5 xdsoft_date"
-                  title=""
-                >
-                  <div>8</div>
-                </td>
-                <td
-                  data-date="9"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend"
-                  title=""
-                >
-                  <div>9</div>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  data-date="10"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend"
-                  title=""
-                >
-                  <div>10</div>
-                </td>
-                <td
-                  data-date="11"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week1 xdsoft_date"
-                  title=""
-                >
-                  <div>11</div>
-                </td>
-                <td
-                  data-date="12"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week2 xdsoft_date"
-                  title=""
-                >
-                  <div>12</div>
-                </td>
-                <td
-                  data-date="13"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week3 xdsoft_date"
-                  title=""
-                >
-                  <div>13</div>
-                </td>
-                <td
-                  data-date="14"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week4 xdsoft_date"
-                  title=""
-                >
-                  <div>14</div>
-                </td>
-                <td
-                  data-date="15"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week5 xdsoft_date"
-                  title=""
-                >
-                  <div>15</div>
-                </td>
-                <td
-                  data-date="16"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend"
-                  title=""
-                >
-                  <div>16</div>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  data-date="17"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend"
-                  title=""
-                >
-                  <div>17</div>
-                </td>
-                <td
-                  data-date="18"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week1 xdsoft_date"
-                  title=""
-                >
-                  <div>18</div>
-                </td>
-                <td
-                  data-date="19"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week2 xdsoft_date"
-                  title=""
-                >
-                  <div>19</div>
-                </td>
-                <td
-                  data-date="20"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week3 xdsoft_date"
-                  title=""
-                >
-                  <div>20</div>
-                </td>
-                <td
-                  data-date="21"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week4 xdsoft_date"
-                  title=""
-                >
-                  <div>21</div>
-                </td>
-                <td
-                  data-date="22"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week5 xdsoft_date"
-                  title=""
-                >
-                  <div>22</div>
-                </td>
-                <td
-                  data-date="23"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend"
-                  title=""
-                >
-                  <div>23</div>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  data-date="24"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend"
-                  title=""
-                >
-                  <div>24</div>
-                </td>
-                <td
-                  data-date="25"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week1 xdsoft_date"
-                  title=""
-                >
-                  <div>25</div>
-                </td>
-                <td
-                  data-date="26"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week2 xdsoft_date"
-                  title=""
-                >
-                  <div>26</div>
-                </td>
-                <td
-                  data-date="27"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week3 xdsoft_date"
-                  title=""
-                >
-                  <div>27</div>
-                </td>
-                <td
-                  data-date="28"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week4 xdsoft_date xdsoft_current"
-                  title=""
-                >
-                  <div>28</div>
-                </td>
-                <td
-                  data-date="29"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week5 xdsoft_date"
-                  title=""
-                >
-                  <div>29</div>
-                </td>
-                <td
-                  data-date="30"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend"
-                  title=""
-                >
-                  <div>30</div>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  data-date="31"
-                  data-month="9"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend"
-                  title=""
-                >
-                  <div>31</div>
-                </td>
-                <td
-                  data-date="1"
-                  data-month="10"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week1 xdsoft_date xdsoft_other_month"
-                  title=""
-                >
-                  <div>1</div>
-                </td>
-                <td
-                  data-date="2"
-                  data-month="10"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week2 xdsoft_date xdsoft_other_month"
-                  title=""
-                >
-                  <div>2</div>
-                </td>
-                <td
-                  data-date="3"
-                  data-month="10"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week3 xdsoft_date xdsoft_other_month"
-                  title=""
-                >
-                  <div>3</div>
-                </td>
-                <td
-                  data-date="4"
-                  data-month="10"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week4 xdsoft_date xdsoft_other_month"
-                  title=""
-                >
-                  <div>4</div>
-                </td>
-                <td
-                  data-date="5"
-                  data-month="10"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week5 xdsoft_date xdsoft_other_month"
-                  title=""
-                >
-                  <div>5</div>
-                </td>
-                <td
-                  data-date="6"
-                  data-month="10"
-                  data-year="2010"
-                  class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_other_month xdsoft_weekend"
-                  title=""
-                >
-                  <div>6</div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!--
-        <button type="button" class="xdsoft_save_selected blue-gradient-button">
-          Save Selected
-        </button>
-        -->
-      </div>
-      <div class="xdsoft_timepicker active">
-        <button type="button" class="xdsoft_prev"></button>
-        <div class="xdsoft_time_box xdsoft_scroller_box" style="overflow-y: auto">
-          <!--<div class="xdsoft_time_variant" style="margin-top: -376px">-->
-          <div class="ajg-time" data-hour="0" data-minute="0">00:00</div>
-          <div class="ajg-time" data-hour="1" data-minute="0">01:00</div>
-          <div class="ajg-time" data-hour="2" data-minute="0">02:00</div>
-          <div class="ajg-time" data-hour="3" data-minute="0">03:00</div>
-          <div class="ajg-time" data-hour="4" data-minute="0">04:00</div>
-          <div class="ajg-time" data-hour="5" data-minute="0">05:00</div>
-          <div class="ajg-time" data-hour="6" data-minute="0">06:00</div>
-          <div class="ajg-time" data-hour="7" data-minute="0">07:00</div>
-          <div class="ajg-time" data-hour="8" data-minute="0">08:00</div>
-          <div class="ajg-time" data-hour="9" data-minute="0">09:00</div>
-          <div class="ajg-time" data-hour="10" data-minute="0">10:00</div>
-          <div class="ajg-time" data-hour="11" data-minute="0">11:00</div>
-          <div class="ajg-time" data-hour="12" data-minute="0">12:00</div>
-          <div class="ajg-time" data-hour="13" data-minute="0">13:00</div>
-          <div class="ajg-time" data-hour="14" data-minute="0">14:00</div>
-          <div class="ajg-time" data-hour="15" data-minute="0">15:00</div>
-          <div class="ajg-time" data-hour="16" data-minute="0">16:00</div>
-          <div class="ajg-time" data-hour="17" data-minute="0">17:00</div>
-          <div class="ajg-time" data-hour="18" data-minute="0">18:00</div>
-          <div class="ajg-time" data-hour="19" data-minute="0">19:00</div>
-          <div class="ajg-time" data-hour="20" data-minute="0">20:00</div>
-          <div class="ajg-time" data-hour="21" data-minute="0">21:00</div>
-          <div class="ajg-time" data-hour="22" data-minute="0">22:00</div>
-          <div class="ajg-time" data-hour="23" data-minute="0">23:00</div>
-          <!--</div>-->
-          <!--
-            <div class="xdsoft_scrollbar">
-              <div class="xdsoft_scroller" style="height: 37px; margin-top: 93.3747px"></div>
-            </div>
-            -->
-        </div>
-        <button type="button" class="xdsoft_next"></button>
-      </div>
-    </div>
-
-    <div style="background-color: beige; padding: 10px; position: absolute; top: 600px">
+    <div style="background-color: beige; padding: 10px; display: inline-block">
       <table class="pcccal">
         <thead>
           <tr>
@@ -541,130 +88,9 @@ export default defineComponent({
             <th>Sat</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody>        
           <tr>
-            <td data-date="26" data-month="8" data-year="2010" class="selectable" title="">
-              <div>26</div>
-            </td>
-            <td
-              data-date="27"
-              data-month="8"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week1 xdsoft_date xdsoft_other_month"
-              title=""
-            >
-              <div>27</div>
-            </td>
-            <td
-              data-date="28"
-              data-month="8"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week2 xdsoft_date xdsoft_other_month"
-              title=""
-            >
-              <div>28</div>
-            </td>
-            <td
-              data-date="29"
-              data-month="8"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week3 xdsoft_date xdsoft_other_month"
-              title=""
-            >
-              <div>29</div>
-            </td>
-            <td
-              data-date="30"
-              data-month="8"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week4 xdsoft_date xdsoft_other_month"
-              title=""
-            >
-              <div>30</div>
-            </td>
-            <td
-              data-date="1"
-              data-month="9"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week5 xdsoft_date"
-              title=""
-            >
-              <div>1</div>
-            </td>
-            <td
-              data-date="2"
-              data-month="9"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend"
-              title=""
-            >
-              <div>2</div>
-            </td>
-          </tr>
-          <tr>
-            <td
-              data-date="3"
-              data-month="9"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend"
-              title=""
-            >
-              <div>3</div>
-            </td>
-            <td
-              data-date="4"
-              data-month="9"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week1 xdsoft_date"
-              title=""
-            >
-              <div>4</div>
-            </td>
-            <td
-              data-date="5"
-              data-month="9"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week2 xdsoft_date"
-              title=""
-            >
-              <div>5</div>
-            </td>
-            <td
-              data-date="6"
-              data-month="9"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week3 xdsoft_date"
-              title=""
-            >
-              <div>6</div>
-            </td>
-            <td
-              data-date="7"
-              data-month="9"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week4 xdsoft_date"
-              title=""
-            >
-              <div>7</div>
-            </td>
-            <td
-              data-date="8"
-              data-month="9"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week5 xdsoft_date"
-              title=""
-            >
-              <div>8</div>
-            </td>
-            <td
-              data-date="9"
-              data-month="9"
-              data-year="2010"
-              classXX="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend"
-              title=""
-            >
-              <div>9</div>
-            </td>
+            <td class="selectable">26</td>
           </tr>
         </tbody>
       </table>
