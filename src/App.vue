@@ -4,7 +4,8 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'App',
   data: {
-    firstDayCurrMonth: new Date(new Date().setDate(1)),
+    currentMonth: 0,
+    currentYear: 2023,
     days: [],
     monthNames: [
       'January',
@@ -22,8 +23,11 @@ export default defineComponent({
     ],
   },
   mounted: function () {    
+    // TODO Wrong days from concat in getGrid - fix 
     this.runTests()
-    this.firstDayCurrMonth = new Date(new Date().setDate(1))
+    const now = new Date();
+    this.currentMonth = now.getMonth();
+    this.currentYear = now.getFullYear();
     this.days = this.getGrid()
   },
   methods: {
@@ -31,7 +35,10 @@ export default defineComponent({
 
     },
     nextMonth: function() {
-
+      const next = new Date(this.currentYear, this.currentMonth + 1, 1);
+      this.currentMonth = next.getMonth();
+      this.currentYear = next.getFullYear();
+      this.days = this.getGrid();
     },
     runTests: function () {
       //Test May 2023 - 5 rows x 7
@@ -39,14 +46,14 @@ export default defineComponent({
         30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
         30, 31, 1, 2, 3,
       ]
-      this.firstDayCurrMonth = new Date(2023, 4, 1)
+      this.currentMonth = 4;
       this.compare(expected, this.getGrid())
       //Test July 2023 - 6 rows x 7
       expected = [
         25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
         25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5,
       ]
-      this.firstDayCurrMonth = new Date(2023, 6, 1)
+      this.currentMonth = 6;
       this.compare(expected, this.getGrid())
     },
     compare: function (expected, actual) {
@@ -55,24 +62,25 @@ export default defineComponent({
       console.assert(expected.toString() === actual.toString())
     },
     getGrid: function () {
-      console.log('START HERE...')
-      const copyDate = new Date(this.firstDayCurrMonth)
-      const lastDayThisMonth = new Date(this.firstDayCurrMonth.getFullYear(), this.firstDayCurrMonth.getMonth() + 1, 0)
-      const lastDayPrevMonth = new Date(copyDate.setDate(0))
-      //console.log('day of week', this.firstDayCurrMonth.getDay())
-      //console.log('lastDayPrevMonth', lastDayPrevMonth);
+      console.log('START HERE...');
+
+      const firstDayCurrMonth = new Date(this.currentYear, this.currentMonth, 1);
+      const copyDate = new Date(this.currentYear, this.currentMonth, 1);
+      const lastDayThisMonth = new Date(firstDayCurrMonth.getFullYear(), firstDayCurrMonth.getMonth() + 1, 0)
+      const lastDayPrevMonth = new Date(copyDate.setDate(0))      
       const daysPrevMonth = this.getDaysInMonth(lastDayPrevMonth)
-      const daysSelectedMonth = this.getDaysInMonth(this.firstDayCurrMonth)
-      //console.log('daysPrevMonth', daysPrevMonth);
-      //console.log('daysSelectedMonth', daysSelectedMonth);
-      //console.log('lastDayThisMonth', lastDayThisMonth);
+      const daysSelectedMonth = this.getDaysInMonth(firstDayCurrMonth)
+      console.log('daysPrevMonth', daysPrevMonth);
+      console.log('daysSelectedMonth', daysSelectedMonth);
+      console.log('lastDayThisMonth', lastDayThisMonth);
       //console.log('lastDayThisMonth.getDay()',  lastDayThisMonth.getDay());
-      const fragmentLastMonth =
-        this.firstDayCurrMonth.getDay() === 0 ? [] : daysPrevMonth.slice(-this.firstDayCurrMonth.getDay())
-      //console.log('days I need from prev month', fragmentLastMonth);
-      const daysNeededNextMonth = 7 - (lastDayThisMonth.getDay() + 1)
-      const fragmentNextMonth = [1, 2, 3, 4, 5, 6, 7].slice(0, daysNeededNextMonth)
-      //console.log('days I need from next month', fragmentNextMonth);
+      const fragmentLastMonth = firstDayCurrMonth.getDay() === 0 ? [] : daysPrevMonth.slice(-firstDayCurrMonth.getDay())
+      console.log('firstDayCurrMonth.getDay()', firstDayCurrMonth.getDay());
+      console.log('days I need from prev month', fragmentLastMonth);
+      const numDaysNeededNextMonth = 7 - (lastDayThisMonth.getDay() + 1);
+      console.log('numDaysNeededNextMonth', numDaysNeededNextMonth);
+      const fragmentNextMonth = [1, 2, 3, 4, 5, 6, 7].slice(0, numDaysNeededNextMonth)
+      console.log('days I need from next month', fragmentNextMonth);
       return [].concat(fragmentLastMonth, daysSelectedMonth, fragmentNextMonth)
     },
     getDaysInMonth: function (aDate) {
@@ -96,9 +104,9 @@ export default defineComponent({
       integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
       crossorigin="anonymous"
     />
-
+  	<span>{{ currentMonth }}/{{ currentYear }}</span>
     <div style="background-color: beige; padding: 10px; display: inline-block">
-      <span>{{ monthNames[firstDayCurrMonth.getMonth()] }}</span><button v-on:click="prevMonth"> < </button> | <button v-on:click="nextMonth">></button>
+      <span>{{ monthNames[currentMonth] }}</span><button v-on:click="prevMonth"> < </button> | <button v-on:click="nextMonth">></button>
       <table class="pcccal">
         <thead>
           <tr>
