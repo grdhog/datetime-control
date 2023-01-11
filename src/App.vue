@@ -5,11 +5,17 @@ export default defineComponent({
   name: 'App',
   mounted: function () {
     //Test May 2023 - 5 rows x 7
-    const expected = [
+    let expected = [
       30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
       31, 1, 2, 3
     ];
     this.compare(expected, this.getGrid(new Date(2023, 4, 17)) );
+    //Test July 2023 - 6 rows x 7
+    expected = [
+      25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      31, 1, 2, 3, 4, 5
+    ];
+    this.compare(expected, this.getGrid(new Date(2023, 6, 17)) );
   },
   methods: {
     compare: function(expected, actual){      
@@ -18,23 +24,25 @@ export default defineComponent({
       console.assert(expected.toString() === actual.toString());
     },
     getGrid: function (aDate) {     
+      console.log('START HERE...');
       const copyDate = new Date(aDate.getTime())
       const firstDaySelectedMonth = new Date(aDate.getFullYear(), aDate.getMonth(), 1)
       const lastDayThisMonth = new Date(aDate.getFullYear(), aDate.getMonth() + 1, 0)
       const lastDayPrevMonth = new Date(copyDate.setDate(0));    
-      console.log('lastDayThisMonth', lastDayThisMonth);
       //console.log('firstDaySelectedMonth', firstDaySelectedMonth);
       //console.log('day of week', firstDaySelectedMonth.getDay())
       //console.log('lastDayPrevMonth', lastDayPrevMonth);  
       const daysPrevMonth = this.getDaysInMonth(lastDayPrevMonth)
       const daysSelectedMonth = this.getDaysInMonth(aDate);
-      console.log('daysPrevMonth', daysPrevMonth);
-      console.log('daysSelectedMonth', daysSelectedMonth);
-
+      //console.log('daysPrevMonth', daysPrevMonth);
+      //console.log('daysSelectedMonth', daysSelectedMonth);
+      //console.log('lastDayThisMonth', lastDayThisMonth);
+      //console.log('lastDayThisMonth.getDay()',  lastDayThisMonth.getDay());    
       const fragmentLastMonth = firstDaySelectedMonth.getDay() === 0 ? [] : daysPrevMonth.slice(-firstDaySelectedMonth.getDay())
-      console.log('days I need from prev month', fragmentLastMonth)
-      const fragmentNextMonth = [1, 2, 3, 4, 5, 6, 7].slice(0, lastDayThisMonth.getDay());
-      console.log('days I need from next month', fragmentNextMonth);
+      //console.log('days I need from prev month', fragmentLastMonth);
+      const daysNeededNextMonth = 7 - (lastDayThisMonth.getDay() + 1);
+      const fragmentNextMonth = [1, 2, 3, 4, 5, 6, 7].slice(0, daysNeededNextMonth);
+      //console.log('days I need from next month', fragmentNextMonth);
       return [].concat(fragmentLastMonth, daysSelectedMonth, fragmentNextMonth);
     },
     getDaysInMonth: function (aDate) {
