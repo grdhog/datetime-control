@@ -4,41 +4,49 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'App',
   mounted: function () {
-    console.log('sweet mate!');
-    const now = new Date();
-    const copyNow = new Date(now.getTime());
-    const firstDayThisMonth = new Date(now.getFullYear(), now.getMonth() , 1);
-    const lastDayThisMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    const lastDayLastMonth = new Date(copyNow.setDate(0));
-    //const firstDayNextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-    console.log('now', now);
-    console.log('firstDayThisMonth', firstDayThisMonth);
-    console.log('firstDayThisMonth, day of week', firstDayThisMonth.getDay());
-    console.log('lastDayLastMonth', lastDayLastMonth);
-    //console.log('firstDayNextMonth', firstDayNextMonth);
-    const daysLastMonth = this.getDaysInMonth( lastDayLastMonth );
-    const daysCurrMonth = this.getDaysInMonth( now );
-    //const daysNextMonth = this.getDaysInMonth( firstDayNextMonth );
-    //console.log('daysLastMonth', daysLastMonth);
-    //console.log('daysCurrMonth', daysCurrMonth);
-    //console.log('daysNextMonth', daysNextMonth);
-
-    const fragmentLastMonth = firstDayThisMonth.getDay() === 0 ? [] : daysLastMonth.slice(-firstDayThisMonth.getDay());
-    console.log(fragmentLastMonth);
-    const fragmentNextMonth = [1,2,3,4,5,6,7].slice(0, lastDayThisMonth.getDay() + 2);
-    console.log(fragmentNextMonth);
+    //Test May 2023 - 5 rows x 7
+    const expected = [
+      30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      31, 1, 2, 3
+    ];
+    this.compare(expected, this.getGrid(new Date(2023, 4, 17)) );
   },
   methods: {
-    getDaysInMonth: function (aDate) {   
-      var date = new Date(aDate.getFullYear(), aDate.getMonth() , 1);
-      var days = [];
+    compare: function(expected, actual){      
+      console.log('expected', expected);
+      console.log('actual', actual);
+      console.assert(expected.toString() === actual.toString());
+    },
+    getGrid: function (aDate) {     
+      const copyDate = new Date(aDate.getTime())
+      const firstDaySelectedMonth = new Date(aDate.getFullYear(), aDate.getMonth(), 1)
+      const lastDayThisMonth = new Date(aDate.getFullYear(), aDate.getMonth() + 1, 0)
+      const lastDayPrevMonth = new Date(copyDate.setDate(0));    
+      console.log('lastDayThisMonth', lastDayThisMonth);
+      //console.log('firstDaySelectedMonth', firstDaySelectedMonth);
+      //console.log('day of week', firstDaySelectedMonth.getDay())
+      //console.log('lastDayPrevMonth', lastDayPrevMonth);  
+      const daysPrevMonth = this.getDaysInMonth(lastDayPrevMonth)
+      const daysSelectedMonth = this.getDaysInMonth(aDate);
+      console.log('daysPrevMonth', daysPrevMonth);
+      console.log('daysSelectedMonth', daysSelectedMonth);
+
+      const fragmentLastMonth = firstDaySelectedMonth.getDay() === 0 ? [] : daysPrevMonth.slice(-firstDaySelectedMonth.getDay())
+      console.log('days I need from prev month', fragmentLastMonth)
+      const fragmentNextMonth = [1, 2, 3, 4, 5, 6, 7].slice(0, lastDayThisMonth.getDay());
+      console.log('days I need from next month', fragmentNextMonth);
+      return [].concat(fragmentLastMonth, daysSelectedMonth, fragmentNextMonth);
+    },
+    getDaysInMonth: function (aDate) {
+      var date = new Date(aDate.getFullYear(), aDate.getMonth(), 1)
+      var days = []
       while (date.getMonth() === aDate.getMonth()) {
-        days.push(new Date(date))
+        days.push(new Date(date).getDate());
         date.setDate(date.getDate() + 1)
       }
       return days
-    }
-  }
+    },
+  },
 })
 </script>
 
@@ -703,7 +711,7 @@ export default defineComponent({
 }
 
 .pcccal .selectable {
-   background: #f5f5f5;
+  background: #f5f5f5;
 }
 
 .ajg-time {
