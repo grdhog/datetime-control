@@ -6,28 +6,48 @@ export default defineComponent({
   data: {
     firstDayCurrMonth: new Date(new Date().setDate(1)),
     days: [],
+    monthNames: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ],
   },
   mounted: function () {    
     this.runTests()
-    this.firstDayCurrMonth = new Date(new Date().setDate(1));
-    this.days = this.getGrid();
+    this.firstDayCurrMonth = new Date(new Date().setDate(1))
+    this.days = this.getGrid()
   },
   methods: {
-    runTests: function () {      
+    prevMonth: function() {
+
+    },
+    nextMonth: function() {
+
+    },
+    runTests: function () {
       //Test May 2023 - 5 rows x 7
       let expected = [
         30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
         30, 31, 1, 2, 3,
       ]
-      this.firstDayCurrMonth = new Date(2023, 4, 1);
-      this.compare(expected, this.getGrid());
+      this.firstDayCurrMonth = new Date(2023, 4, 1)
+      this.compare(expected, this.getGrid())
       //Test July 2023 - 6 rows x 7
       expected = [
         25, 26, 27, 28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
         25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5,
       ]
-      this.firstDayCurrMonth = new Date(2023, 6, 1);
-      this.compare(expected, this.getGrid());
+      this.firstDayCurrMonth = new Date(2023, 6, 1)
+      this.compare(expected, this.getGrid())
     },
     compare: function (expected, actual) {
       console.log('expected', expected)
@@ -36,7 +56,7 @@ export default defineComponent({
     },
     getGrid: function () {
       console.log('START HERE...')
-      const copyDate = new Date(this.firstDayCurrMonth);
+      const copyDate = new Date(this.firstDayCurrMonth)
       const lastDayThisMonth = new Date(this.firstDayCurrMonth.getFullYear(), this.firstDayCurrMonth.getMonth() + 1, 0)
       const lastDayPrevMonth = new Date(copyDate.setDate(0))
       //console.log('day of week', this.firstDayCurrMonth.getDay())
@@ -78,6 +98,7 @@ export default defineComponent({
     />
 
     <div style="background-color: beige; padding: 10px; display: inline-block">
+      <span>{{ monthNames[firstDayCurrMonth.getMonth()] }}</span><button v-on:click="prevMonth"> < </button> | <button v-on:click="nextMonth">></button>
       <table class="pcccal">
         <thead>
           <tr>
@@ -90,9 +111,11 @@ export default defineComponent({
             <th>Sat</th>
           </tr>
         </thead>
-        <tbody>        
-          <tr v-for="row in (days.length/7)">
-            <td :row="row" :day="day" v-for="day in days.slice( (row - 1) * 7,row * 7)" class="selectable">{{ days[day-1] }}</td>
+        <tbody>
+          <tr v-for="row in days.length / 7">
+            <td :row="row" :day="day" v-for="day in days.slice((row - 1) * 7, row * 7)" class="selectable">
+              {{ days[day - 1] }}
+            </td>
           </tr>
         </tbody>
       </table>
