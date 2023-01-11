@@ -89,8 +89,8 @@ export default defineComponent({
           </tr>
         </thead>
         <tbody>        
-          <tr>
-            <td class="selectable">26</td>
+          <tr v-for="row in (days.length/7)">
+            <td :row="row" :day="day" v-for="day in days.slice( (row - 1) * 7,row * 7)" class="selectable">{{ days[day-1] }}</td>
           </tr>
         </tbody>
       </table>
